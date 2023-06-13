@@ -17,9 +17,9 @@ void DrawBackground(int score1, int score2) {
     }
 
     char score1s[4];
-    sprintf(score1s, "%d", score1);
+    snprintf(score1s, 4, "%d", score1);
     char score2s[4];
-    sprintf(score2s, "%d", score2);
+    snprintf(score2s, 4, "%d", score2);
 
     int scoreOffset = (float)SCORE_SIZE / (2 * 2.4);
     DrawText(score1s, WIDTH / 2 - 100 - scoreOffset, 100, SCORE_SIZE, GRAY);
