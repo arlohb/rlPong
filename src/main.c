@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <raylib.h>
 #include <raymath.h>
@@ -8,14 +9,31 @@
 
 #define SCORE_SIZE 140
 
+void DrawBackground(int score1, int score2) {
+    ClearBackground(RAYWHITE);
+
+    for (int y = 0; y < HEIGHT; y += 60) {
+        DrawRectangle(WIDTH / 2, y, 20, 30, LIGHTGRAY);
+    }
+
+    char score1s[4];
+    sprintf(score1s, "%d", score1);
+    char score2s[4];
+    sprintf(score2s, "%d", score2);
+
+    int scoreOffset = (float)SCORE_SIZE / (2 * 2.4);
+    DrawText(score1s, WIDTH / 2 - 100 - scoreOffset, 100, SCORE_SIZE, GRAY);
+    DrawText(score2s, WIDTH / 2 + 100 - scoreOffset, 100, SCORE_SIZE, GRAY);
+}
+
 int main() {
     InitWindow(WIDTH, HEIGHT, "First window!!");
 
     Ball ball = CreateBall();
 
-    Bat bat1 = { BAT_OFFSET, (float)HEIGHT / 2 };
+    Bat bat1 = {{ BAT_OFFSET, (float)HEIGHT / 2 }};
     unsigned int score1 = 0;
-    Bat bat2 = { WIDTH - BAT_OFFSET, (float)HEIGHT / 2 };
+    Bat bat2 = {{ WIDTH - BAT_OFFSET, (float)HEIGHT / 2 }};
     unsigned int score2 = 0;
 
     float collideTimer = 0;
@@ -25,23 +43,8 @@ int main() {
             float delta = GetFrameTime();
             collideTimer -= delta;
 
-            ClearBackground(RAYWHITE);
-
-            for (int y = 0; y < HEIGHT; y += 60) {
-                DrawRectangle(WIDTH / 2, y, 20, 30, LIGHTGRAY);
-            }
-
-            char score1s[4];
-            sprintf(score1s, "%d", score1);
-            char score2s[4];
-            sprintf(score2s, "%d", score2);
-
-            int scoreOffset = (float)SCORE_SIZE / (2 * 2.4);
-            DrawText(score1s, WIDTH / 2 - 100 - scoreOffset, 100, SCORE_SIZE, GRAY);
-            DrawText(score2s, WIDTH / 2 + 100 - scoreOffset, 100, SCORE_SIZE, GRAY);
-
+            DrawBackground(score1, score2);
             DrawBall(&ball);
-            
             DrawBat(&bat1);
             DrawBat(&bat2);
 
