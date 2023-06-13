@@ -45,17 +45,17 @@ int main() {
             DrawBat(&bat1);
             DrawBat(&bat2);
 
-            if (IsKeyDown(KEY_W)) {
+            if (IsKeyDown(KEY_W) && bat1.position.y >= (float)BAT_HEIGHT / 2) {
                 bat1.position.y -= BAT_SPEED * delta;
             }
-            if (IsKeyDown(KEY_S)) {
+            if (IsKeyDown(KEY_S) && bat1.position.y <= HEIGHT - (float)BAT_HEIGHT / 2) {
                 bat1.position.y += BAT_SPEED * delta;
             }
 
-            if (IsKeyDown(KEY_UP)) {
+            if (IsKeyDown(KEY_UP) && bat2.position.y >= (float)BAT_HEIGHT / 2) {
                 bat2.position.y -= BAT_SPEED * delta;
             }
-            if (IsKeyDown(KEY_DOWN)) {
+            if (IsKeyDown(KEY_DOWN) && bat2.position.y <= HEIGHT - (float)BAT_HEIGHT / 2) {
                 bat2.position.y += BAT_SPEED * delta;
             }
 
