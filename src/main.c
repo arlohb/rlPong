@@ -6,13 +6,17 @@
 #include "ball.h"
 #include "bat.h"
 
+#define SCORE_SIZE 140
+
 int main() {
     InitWindow(WIDTH, HEIGHT, "First window!!");
 
     Ball ball = CreateBall();
 
     Bat bat1 = { BAT_OFFSET, (float)HEIGHT / 2 };
+    unsigned int score1 = 0;
     Bat bat2 = { WIDTH - BAT_OFFSET, (float)HEIGHT / 2 };
+    unsigned int score2 = 0;
 
     float collideTimer = 0;
 
@@ -23,7 +27,18 @@ int main() {
 
             ClearBackground(RAYWHITE);
 
-            DrawText("First window!!", 190, 200, 20, LIGHTGRAY);
+            for (int y = 0; y < HEIGHT; y += 60) {
+                DrawRectangle(WIDTH / 2, y, 20, 30, LIGHTGRAY);
+            }
+
+            char score1s[4];
+            sprintf(score1s, "%d", score1);
+            char score2s[4];
+            sprintf(score2s, "%d", score2);
+
+            int scoreOffset = (float)SCORE_SIZE / (2 * 2.4);
+            DrawText(score1s, WIDTH / 2 - 100 - scoreOffset, 100, SCORE_SIZE, GRAY);
+            DrawText(score2s, WIDTH / 2 + 100 - scoreOffset, 100, SCORE_SIZE, GRAY);
 
             DrawBall(&ball);
             
@@ -61,8 +76,14 @@ int main() {
                 ball.position = Vector2Subtract(ball.position, ballOffset);
             }
 
-            for (int y = 0; y < HEIGHT; y += 60) {
-                DrawRectangle(WIDTH / 2, y, 20, 30, LIGHTGRAY);
+            if (ball.position.x <= -(float)BALL_SIZE / 2) {
+                score2 += 1;
+                ball = CreateBall();
+            }
+
+            if (ball.position.x >= WIDTH + (float)BALL_SIZE / 2) {
+                score1 += 1;
+                ball = CreateBall();
             }
 
         EndDrawing();
