@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-gcc src/*.c -lraylib
+gcc -Wall -Wextra src/*.c -lraylib
 ./a.out
 
