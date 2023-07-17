@@ -7,10 +7,6 @@ main:
 run: main
 	./$(out)
 
-lint:
-	clang-tidy $(source_files)
-	clang-check $(source_files)
-
 clean:
 	rm -f $(out)
 
